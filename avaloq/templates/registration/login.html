@@ -1,0 +1,35 @@
+{% extends 'avaloq_app/base.html' %} {% block title %} Login {% endblock %} {% block content %}
+<div id="background">
+
+    <div id="loginBox">
+        
+        <div id="insideBlueLogin">
+
+            <h1>Log In</h1>
+
+
+
+            <form method="post" action=".">
+                {% csrf_token %} {% for field in form %} {%if field.html_name == "username" %}
+
+                <input class="form-control" id="{{ field.id_for_label }}" maxlength="20" name="{{ field.html_name }}" placeholder="username" type="text" />
+
+                <br> {%elif field.html_name == "password" %}
+
+
+                <input class="form-control" id="{{ field.id_for_label }}" maxlength="20" name="{{ field.html_name }}" placeholder="password" type="password" />
+
+                <br> {%endif%} {% endfor %}
+                <button class="btn" style="width:8rem;  border-radius: 2rem; margin-top: 0.5rem; margin-right: 3.4rem;font-family: 'Source Sans Pro', sans-serif;
+; font-size: 0.7rem; height: 2.3rem;     box-shadow: 2px 2px 6px 2px #0097DB;" type="submit">LOG IN</button>
+                <input type="hidden" name="next" value="{{ next }}" />
+
+            </form>
+
+        </div>
+
+
+    </div>
+
+</div>
+{% endblock %} {%block login%} {%endblock%}

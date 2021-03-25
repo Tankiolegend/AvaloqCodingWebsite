@@ -1,0 +1,106 @@
+<!DOCTYPE html> 
+
+{% load static %}
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Avaloq</title>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    
+
+    <!--BOOTSTRAP LINKS-->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    />
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <script src="https://cdnjs.cloudfare.com/ajax/libs/rellax/1.7.1/rellax.min.js"></script>
+
+    <!--CODEMIRROR LINKS-->
+
+    <script src="{% static 'codemirror/lib/codemirror.js' %}"></script>
+    <link
+      href="{% static 'codemirror/lib/codemirror.css' %}"
+      rel="stylesheet"
+    />
+    <link href="{% static 'codemirror/doc/docs.css' %}" rel="stylesheet" />
+    <script src="{% static 'codemirror/mode/xml/xml.js' %}"></script>
+    <link href="{% static 'codemirror/theme/neo.css' %}" rel="stylesheet" />
+    <script src="{% static 'codemirror/addon/edit/matchbrackets.js' %}"></script>
+    <script src="{% static 'codemirror/mode/python/python.js' %}"></script>
+    <script src="{% static 'codemirror/mode/javascript/javascript.js' %}"></script>
+    <script src="{% static 'codemirror/mode/clike/clike.js' %}"></script>
+
+    <script src="{% static 'codemirror/addon/display/placeholder.js' %}"></script>
+    <script src="{% static 'codemirror/addon/mode/loadmode.js' %}"></script>
+    <script src="{% static 'codemirror/addon/mode/meta.js' %}"></script>
+
+    <!--DO NOT MOVE THE STYLESHEET WITHOUT CONTACTING ANA :)-->
+    <link href="{% static 'css/stylesheet.css' %}" rel="stylesheet" />
+
+    <script type="text/javascript" src="{% static 'js/csrf.js' %}"></script>
+
+    {# MathJax to display nicely latex math#}
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+    ></script>
+    {# end of MathJax#}
+
+    <style>
+      {#        to show **text** from markdown in bold#}
+          strong {
+              font-weight: bold;
+              text-decoration: none;
+          }
+    </style>
+  </head>
+
+  <body>
+    <script
+      src="{% static 'js/jquery-3.3.1.min.js' %}"
+      crossorigin="anonymous"
+    ></script>
+
+    {% block content %} 
+    
+    {% endblock %}
+
+    <script
+      src="{% static 'js/avaloq-ajax.js' %}"
+      crossorigin="anonymous"
+    ></script>
+
+    {%block login%} 
+    
+        {% if not user.is_authenticated %}
+
+            <a class="btn btn-outline-primary" href="{% url 'auth_login' %}"
+            >Are you a member of Avaloq? Log In</a
+            >
+            {%else%}  
+
+        {%endif%} 
+        
+    {%endblock%}
+  </body>
+</html>

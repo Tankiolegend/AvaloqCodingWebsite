@@ -1,0 +1,56 @@
+{% extends 'avaloq_app/base.html' %}{% block title %}
+{% load static %}
+
+{% endblock %}
+
+{% block content %}
+<script>
+document.addEventListener("DOMContentLoaded", function(event) {
+
+    var q1_submitted = "{{q1_submitted}}"; 
+    var q2_submitted = "{{q2_submitted}}"; 
+    const button1 = document.getElementById("goQuestion0");
+    const button2 = document.getElementById("goQuestion1");
+    if( q1_submitted =="True"){
+        button1.disabled = true;
+
+    }
+    if( q2_submitted =="True"){
+        button2.disabled = true;
+
+    }
+
+});
+    
+</script>
+    <div id="welcomeBox">
+        <img src="{% static 'images/logo2.jpg' %}" id="logo">
+        <div id="welcome">
+            <h1>Welcome {{candidate.forename}} {{candidate.surname}}</h1>
+            <h3>You have been provided with two questions. Once you start the question a timer will display the time left until when you question will be submitted automatically. You will be provided with a set of test cases that you can run which can help you determine if you have succesfully solved the problem. As well you can enter your own custom input. If you finish the question early you can choose to submit your code. However, you will not be able to access the question again</h3>
+        </div>
+
+    </div>
+    <div id="mainbox">
+        
+        {%for q in questions%}
+        <div id="question">
+            <div id="text">
+                
+                <input type="button" id = 'goQuestion{{ q.num }}' class = "btn" value="Begin Question" onclick="location.href='{% url 'avaloq:get_code' candidate.unique_id q.num%}'">
+                <h1>{{q.title}}</h1>
+
+            </div>
+
+        </div>
+        {%endfor%}
+        
+    </div>
+    
+
+
+
+
+
+
+{% endblock %}

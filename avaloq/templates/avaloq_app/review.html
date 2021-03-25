@@ -1,0 +1,200 @@
+{% extends 'avaloq_app/base.html' %} {% load static %} {%block title%} Review {%endblock%} {%block meta%}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">{%endblock%} {%block content%}
+
+<nav class="navbar navbar-expand-lg navbar-light bg-dark">
+    <a class="navbar-brand" id="userName">Welcome {{request.user.username}}</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+        {%if admin%}
+
+        <a  href="{% url 'avaloq:create_staff' %}" id="add" style="margin-left: 2rem; margin-right:  2rem;
+        ">+ Staff</a> {%endif%}
+        <a href="{% url 'avaloq:add-candidate' %}" id="add"> + Candidate</a>
+        <ul class="navbar-nav ml-auto text-right">
+            <a id="ChangePassword" href="{% url 'auth_password_change' %}"> <u>Change Password</u></a>
+            <a class="btn btn-outline-success" type="button" id="lightBtn" href="{% url 'auth_logout' %}"> Log Out</a>
+
+</nav>
+{%if newCandidate%}
+<div class="alert alert-success" role="alert">
+    Candidate Successfully Created
+</div>
+{%endif%}
+
+
+ 
+
+
+
+
+<div id="candidate-list">
+    <input class="search" id="search" placeholder="Search" />
+
+
+
+    <div id="boxTable">
+
+        <table>
+
+            <tr>
+                <th><a style="cursor: pointer;" class="sort" data-sort="forename">
+                                Forename
+                            </a></th>
+                <th><a style="cursor: pointer;" class="sort" data-sort="surname">
+                                Surname
+                            </a></th>
+                <th>URL</th>
+                <th><a style="cursor: pointer;" class="sort" data-sort="submitted">
+                                Submitted
+                            </a></th>
+                <th><a style="cursor: pointer;" class="sort" data-sort="timestamp">
+                                Created
+                        </a></th>
+
+
+
+
+            </tr>
+            <tbody class="list">
+                {%for c in candidates %}
+                <tr id={{c.unique_id}}>
+                    <td class="forename">{{c.forename}}</td>
+                    <td class="surname">{{c.surname}}</td>
+
+                    <td>
+                    {{hostname}}/avaloq/candidate-home/{{c.unique_id}}
+                       
+                            <img class="img" style="cursor:pointer"width="20px"src="{% static 'images/copy.png' %}"data-clipboard-text="{{hostname}}/avaloq/candidate-home/{{c.unique_id}}" data-placement="top" data-toggle="popover" data-content="URL Copied!">
+                        
+                    </td>
+                    {%if c.expired%}
+                    <td class="submitted">EXPIRED</td>
+                    {%else%}
+                    <td class="submitted">{{c.submitted}}</td>
+                    {%endif%}
+                    <td class="date timestamp" data-timestamp={{c.timestamp}}>{{c.init_time}}</td>
+                    <td>
+                        {%if c.submitted%}
+
+                        <input type="button" value="Review" style="color:white" onclick="location.href='{% url 'avaloq:code_review' c.unique_id %}'">
+
+                        {%else%}
+
+                        <input type="button" class="disabled"value="Review" style="color:white">
+                        {%endif%}
+                    </td>
+
+                    {%if admin %}
+                    <td>
+                        <button id="delete_btn" data-candidateid="{{c.unique_id}}" type="button">
+                            
+                                <img src="{% static 'images/remove.png' %}" id="remove">
+                            
+                            
+                            </button>
+                    </td>
+
+                    {%endif%}
+
+
+
+                </tr>
+
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+
+</div>
+
+<script src="{% static 'js/jquery-3.3.1.min.js' %}" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+$( document ).ready(function() {
+
+
+var buttons = document.getElementsByClassName("disabled");
+for (var i = 0; i < buttons.length; i++) {
+  buttons[i].disabled=true;
+}
+
+});
+</script>
+<script>
+
+
+
+    new ClipboardJS('.img');
+     var options = {
+        valueNames: ['forename', 'surname', 'submitted', {
+            name: 'timestamp',
+            attr: 'data-timestamp'
+        }]
+    };
+    var candidateList = new List('candidate-list', options);
+</script>
+
+<script>
+    var options = {
+        valueNames: ['forename', 'surname', 'submitted', {
+            name: 'timestamp',
+            attr: 'data-timestamp'
+        }]
+    };
+    var candidateList = new List('candidate-list', options);
+</script>
+
+
+<script>
+    $("[data-toggle=popover]").popover();
+
+    $('[data-toggle="popover"]').click(function() {
+
+        setTimeout(function() {
+            $('.popover').fadeOut('slow');
+        }, 2000);
+
+    });
+</script>
+
+<script type="text/javascript">
+$( document ).ready(function() {
+
+
+    var id = "{{newCandidate.unique_id}}";
+    
+    if(id.length >0){
+    
+    flashElement(3,500,id);
+    }
+    
+
+    function flashElement(flashes,time,id){
+        
+        for(var i=0;i<flashes;i++){
+            $("#"+id).fadeOut(time).fadeIn(time);
+        }
+
+    }
+
+
+});
+</script>
+
+
+
+
+
+{%endblock%} {%block login%} {%endblock%}

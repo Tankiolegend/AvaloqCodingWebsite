@@ -1,0 +1,45 @@
+image: python:3.7
+
+variables:
+  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - ~/.cache/pip/
+    - venv/
+
+# This is a basic example for a gem or script which doesn't use
+# services such as redis or postgres
+before_script:
+  - python -V  # Print out python version for debugging
+  - pip install virtualenv
+  - virtualenv venv
+  - source venv/bin/activate
+  - apt update -q
+
+  - pip install -r requirements.txt
+  - apt install libcap-dev -yqq
+  - git clone https://github.com/ioi/isolate.git
+  - cd isolate
+  - make isolate
+  - make install
+  - isolate --init
+  - cd ..
+
+  - apt install default-jdk -yqq
+  - apt install nodejs -yqq
+  - curl https://www.npmjs.com/install.sh | sh
+  - npm i -g npm
+  - npm i -g --save lodash
+  - npm list -g --depth=0
+
+test:
+  tags:
+    - docker
+  script:
+    - cd avaloq
+    - pip install pylint-django
+    - python manage.py shell
+    - git ls-files | grep -v 'migrations' | grep -v test_data | grep -v 'settings.py' | grep -v 'manage.py' | grep -E '.py$' | xargs pylint -E --load-plugins=pylint_django --disable=imported-auth-user --disable=django-not-configured
+    - python manage.py test

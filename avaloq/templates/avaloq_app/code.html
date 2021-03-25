@@ -1,0 +1,145 @@
+{% extends 'avaloq_app/base.html' %}
+{% load static %}
+
+
+{%block content%}
+<script
+      src="{% static 'js/submit-jquery.js' %}"
+      crossorigin="anonymous"
+    ></script>
+{%if candidate %}
+
+    {%if q%}
+{#    {{q.text}}#}
+        <div id="boxQuestion">
+        {% load markdown_extras %}
+        {{ question | markdown | safe }}
+        </div>
+    {%else%}
+        No questioin
+{#        <div id="box">#}
+{##}
+{#        {% load markdown_extras %}#}
+{#        {{ question | markdown | safe }}#}
+{#        </div>#}
+    {%endif%}
+
+    <div id="timer" >
+		<p id ="timer"></p>
+    </div>
+
+    <form id = "code_form" action="{% url 'avaloq:get_code' candidate.unique_id q_num%}" method="post" value="{{ csrf_token }}">
+
+    
+        {% csrf_token %}    
+        
+    <div class="container-fluid padding">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <div id="topbar">
+                <div class="dropdown show">                   
+                    <p>{{ form.language }} </p>
+
+                </div>   
+            </div>
+            <div id="box">
+                <p>{{form.code_text}}</p>
+
+                <div class="form-check">
+
+                    <input id = 'user_test_input' type="checkbox" class="form-check-input" onchange="valueChanged()" >
+
+					<label class="form-check-label" for="exampleCheck1">Test Against Custom Input</label>
+
+                </div>
+
+                <button class="btn" id="submit" type="submit" name="submit_code"  class="btn" value="code submission">Submit Code</button>
+
+                <button type="button" name="run_code" value="run code" class="btn" id="run" onclick="showDiv()" >Run Code</button>
+
+                <div id="customInput" >
+                    <p> {{ form.test_input }}</p>
+                </div>
+
+            </div>
+            <p> {{ results }} </p> {#isolate results#}
+        </div>
+    </div>
+</form> 
+
+
+<div class="container-fluid padding">
+<div id="testBox">
+    <div class="row">
+        
+        <div class="col-lg-3 col-md-3 col-sm-12" id="testCaseNames">
+            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#tc-0" role="tab" aria-controls="v-pills-home" aria-selected="true" >Test Case 0 <!-- <img id='tc-img' src="{% static 'images/tick.png' %}"> --></a>
+            </div>
+        </div>
+
+        <div class="col-lg-9 col-md-9 col-sm-12"> 
+            <div class="tab-content" id="v-pills-tabContent">
+                <div class="tab-pane fade show active" id="tc-0" role="tabpanel" aria-labelledby="v-pills-home-tab" >
+                    <h3>Compiler Message</h3>
+                    <div id="boxes">
+                        <h4 id="compiler0">  </h4>
+                    </div>
+                    <div id="input">
+                        <h3>Input (stdin)</h3>
+                        <div id="boxes">
+                            <h4 id="test_input0"></h4>
+                        </div>
+                    </div>
+                    <h3>Your Output (stdout)</h3>
+                    <div id="boxes">
+                        <h4 id="user_output0"></h4>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    {#  templates for langugages  #}
+    var templates = JSON.parse('{{ templates | safe }}');
+    var python_code = templates['python'];
+    var java_code = templates['java'];
+    var js_code = templates['javascript'];
+
+    function showDiv() {
+        document.getElementById('testBox').style.display = "block";
+    }
+
+    function valueChanged()
+    {
+        if($('.form-check-input').is(":checked"))
+            document.getElementById('customInput').style.display = "block";
+            
+        else
+            document.getElementById('customInput').style.display = "none";
+    }
+
+    {# --------- CodeMirror editor setup --------- #}
+    const modeJava ="text/x-java";
+    const modePython = "text/x-python";
+    const modeJS = "text/javascript";
+    {#editor initially set to java mode#}
+    var editor= CodeMirror.fromTextArea(
+        document.getElementById('code_text'),{
+            mode:"text/x-java",
+            theme:"neo",
+            lineNumbers:true,
+            autoCloseTags:true,
+            matchBrackets: true,
+         });
+
+</script> 
+{%else%}
+<h1>candidate does not exist</h1>
+{%endif%}
+
+{%endblock%}
+
+

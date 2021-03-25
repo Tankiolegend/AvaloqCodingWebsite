@@ -1,0 +1,57 @@
+{% extends 'avaloq_app/base.html' %}
+{% block title %} Create Staff {% endblock %} 
+
+{% block content %}
+
+{% load static %}
+
+
+<div id="backgroundPass">
+    <div class="container">
+        <div class="row" id="formDiv">
+          <div class="col-md" id="formCol">
+            <img src="{% static 'images/girl.PNG' %}" id="girlImgStaff">
+          </div>
+          <div class="col-sm">
+            <div id="inside">
+                <h1>Create Staff</h1>
+    
+                <form method="post">
+                    {% csrf_token %} 
+
+                    {% for field in form %} 
+                      {%if field.html_name == "username" %}
+                        <input class="form-control" id="createStaffField" maxlength="20" name="{{ field.html_name }}" placeholder="Username" type="text"autocomplete="on">
+                      {% for error in field.errors %}
+                        <p id="formError">{{ error }}</p>
+                      {% endfor %}
+                      <br>
+                      {%elif field.html_name == "password1" %}
+                        <input class="form-control" id="createStaffField" maxlength="20" name="{{ field.html_name }}" placeholder="Password" type="password"autocomplete="on">
+                        {% for error in field.errors %}
+                          <p id="formError">{{ error }}</p>
+                        {% endfor %}
+                        <br> 
+                      {%elif field.html_name == "password2" %}
+                        <input class="form-control" id="createStaffField" maxlength="20" name="{{ field.html_name }}" placeholder="Re-enter password" type="password"autocomplete="on">
+                        {% for error in field.errors %}
+                          <p id="formError">{{ error }}</p>
+                        {% endfor %}
+                      {%else%}
+                        <br>
+                        Admin Account? {{field}} 
+                      {%endif%} 
+                    {%endfor%}
+                    
+                    <button class="btn" id ="ReturnReviewBtn" type="submit">Create</button>
+                </form>
+            </div>
+          </div>
+    
+        </div>
+    </div>
+    
+    
+    </div>
+    
+{% endblock %}

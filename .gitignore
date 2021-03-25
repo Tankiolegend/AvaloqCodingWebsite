@@ -1,0 +1,13 @@
+Requirements Specifications/
+test/
+__pycache__/
+db.sqlite3
+*.pyc
+*.key
+thumbs.db
+.vscode/
+Main.java
+main.py
+main.js
+Main.class
+meta

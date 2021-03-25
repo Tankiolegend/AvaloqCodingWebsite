@@ -1,0 +1,19 @@
+{% extends 'avaloq_app/base.html' %}
+{%block title%}Thank You!{%endblock%}
+
+{%block content%}
+{% load static %}
+
+<div id="background">
+    <div id="subBox">
+        <div id="insideBlue">
+            <h1>Your submission has been successful!</h1>
+            <h3>We will contact you soon</h3>
+            <div id="check">
+                <img src="{% static 'images/check.png' %}" id="tickDone">
+            </div>
+        </div>
+    </div>
+</div>
+
+    {%endblock%}
