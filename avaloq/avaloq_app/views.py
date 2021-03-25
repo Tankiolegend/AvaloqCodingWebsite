@@ -45,15 +45,6 @@ def completion(request):
     context_dict = {}
     return render(request, 'avaloq_app/completion.html', context=context_dict)
 
-def file_counter(path):
-    
-    file_count = 0
-
-    for i in os.listdir(path):
-        if i.startswith('sample'):
-            file_count+=1
-            
-    return file_count/2
 
 def home(request, u_id):
     context_dict = {}
@@ -66,13 +57,6 @@ def home(request, u_id):
         context_dict['q1_submitted'] = candidate.q1_sub
         context_dict['q2_submitted'] = candidate.q2_sub
         
-        test_path1 = os.path.join(Path(__file__).resolve().parent.parent, ('tasks/test_cases/'+str(1)))
-        test_path2 = os.path.join(Path(__file__).resolve().parent.parent, ('tasks/test_cases/'+str(1)))
-        
-        
-        setattr(context_dict['questions'], 'tcount',file_counter(test_path1))
-        setattr(context_dict['questions'], 'tcount', file_counter(test_path2))
-        print(context_dict['questions'][0])
         
         if(candidate.is_submitted()):
             return redirect(reverse('avaloq:completion'))
@@ -160,9 +144,9 @@ def get_code(request, u_id, q_num):
         code_input = form.cleaned_data['code_text']
         
         test_case = form.cleaned_data['test_input']
-        testing_folder = "tasks/test_cases/1"  # test_case_path.format(1)
         lang = request.POST.get('language')
-
+        testing_folder = os.path.join('tasks/test_cases/', str(candidate.questions.all()[int(q_num)].q_id))
+        
         redirect_url = reverse('avaloq:home', kwargs={'u_id': u_id})
 
         if request.is_ajax():
@@ -204,8 +188,10 @@ def get_code(request, u_id, q_num):
                     user_test_input = form.cleaned_data['user_test_input']
 
                     if not user_test_input: #if it brakes use: request.POST.get('user_test_input')
+                    
+                        
                         results = test_system.get_outputs(LANGS[lang], code_input, get_inputs(
-                            get_sample_tests('tasks/test_cases/1')))  # get_output(code_input, test_case)
+                            get_sample_tests(testing_folder)))  # get_output(code_input, test_case)
                     else:
                         results = test_system.get_outputs(LANGS[lang], code_input,
                                                           [test_case])  # get_output(code_input, test_case)
@@ -250,7 +236,7 @@ def get_code(request, u_id, q_num):
                 print("pressed submit code")
                 code_input = form.cleaned_data['code_text']
                 lang = form.cleaned_data['language']
-                testing_folder = "tasks/test_cases/1"  # test_case_path.format(1)
+                
                 verdicts = test_system.get_verdicts(LANGS[lang], code_input, get_all_tests(testing_folder))
 
                 candidate.add_code({"code": code_input, "is_submitted": True, "q_num": int(q_num),

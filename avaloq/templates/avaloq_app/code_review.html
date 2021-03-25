@@ -42,11 +42,14 @@
         </div> 
 
         <input type="range" min="0" max={{code_length}} value="50" class="slider" id="myRange">
-    </div> 
+
+	
+	</div>
 
     <p id="clockText" id="code_text"><img src="{% static 'images/clock.png' %}" id="timeImg">Min <span id="demo"></span></p>
     
     <p id="language">
+		Language: 
     </p>
 
             <form><textarea style="margin-top: 0rem;" id="code_entries" name="code_entries" placeholder="Code goes here..."></textarea></form>
@@ -95,8 +98,6 @@
         var verdicts = {{ verdicts | safe }};
         var code_entry0 = code_entries[0]
         var code_entry1 = code_entries[1]
-		console.info(code_entries);
-		console.info(verdicts);
         const modeJava ="text/x-java";
         const modePython = "text/x-python";
         {#editor initially set to java mode#}
@@ -125,9 +126,8 @@
 
         // set up codemirror with initial conde snippet
         $(document).ready(function() {
-            console.info(code_entry0[snippetIndex]);
-            console.info(code_entry0[snippetIndex].code);
             editor.setValue(code_entry0[snippetIndex].code);
+			document.getElementById("language").innerHTML = "Language: " + code_entry0[snippetIndex].language;
         })
 
         showVerdicts();

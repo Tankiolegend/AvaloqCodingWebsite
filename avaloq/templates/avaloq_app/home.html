@@ -39,6 +39,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
                 
                 <input type="button" id = 'goQuestion{{ q.num }}' class = "btn" value="Begin Question" onclick="location.href='{% url 'avaloq:get_code' candidate.unique_id q.num%}'">
                 <h1>{{q.title}}</h1>
+				<h3> Time allowed: {{q.time}} minutes </h3>
 
             </div>
 

@@ -356,6 +356,7 @@ $(document).ready(function() {
         alert('Right click menu is not allowed for this exercise.');
         return false;
     });
+
     //
     // 	//Fix for ctrl+v still working
     var map = {};
@@ -366,14 +367,13 @@ $(document).ready(function() {
             alert('Cut, copy and paste is not allowed for this exercise.');
             event.preventDefault();
             map[86] = false;
-        };
+        }else if (map[123]){
+			alert('Inspect element is not allowed!');
+            event.preventDefault();
+			map[123] = false;
+			
+		};
     };
 
-    // Prevent inspect element
-    $(document).keydown(function(event) {
-        if (event.which === '123') {
-            alert('Inspect element is not allowed!');
-            event.preventDefault();
-        }
-    });
+
 });

@@ -1,15 +1,13 @@
+import os
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'avaloq.settings')
+import django
+django.setup()
 import json
 import string
 import datetime
 import random
 from avaloq_app.models import *
 from django.contrib.auth.models import User
-import django
-import os
-
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'avaloq.settings')
-
-django.setup()
 
 
 def snippets():

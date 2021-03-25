@@ -2,7 +2,6 @@ let question1 = true;
 
 function changeQuestion1() {
     question1 = true;
-    console.info("quesiton1 = ", question1);
     slider.max = code_entry0.length - 1;
     updateEditor();
     hideResultBox(2);
@@ -10,9 +9,7 @@ function changeQuestion1() {
 
 function changeQuestion2() {
     question1 = false;
-    console.info("quesiton1 = ", question1, "i.e. showing Q2");
     slider.max = code_entry1.length - 1;
-    console.info(slider);
     updateEditor();
 }
 
@@ -134,8 +131,10 @@ function updateEditor() {
             slider.max = code_entry0.length - 1;
             slider.value = code_entry0.length - 1;
             editor.setValue(code_entry0[slider.value].code);
+			document.getElementById("language").innerHTML = "Language: " + code_entry0[slider.value].language;
         } else {
             editor.setValue(code_entry0[slider.value].code);
+			document.getElementById("language").innerHTML = "Language: " + code_entry0[slider.value].language;
         }
 
     } else {
@@ -143,8 +142,10 @@ function updateEditor() {
             slider.max = code_entry1.length - 1;
             slider.value = code_entry1.length - 1;
             editor.setValue(code_entry1[slider.value].code);
+			document.getElementById("language").innerHTML = "Language: " + code_entry1[slider.value].language;
         } else {
             editor.setValue(code_entry1[slider.value].code);
+			document.getElementById("language").innerHTML = "Language: " + code_entry1[slider.value].language;
         }
     }
 }
