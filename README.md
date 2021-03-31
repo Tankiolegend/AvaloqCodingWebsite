@@ -2,7 +2,7 @@
 
 The website features a platform for candidates to answer questions by writing their own code in their chosen language. It also features staff access for Avaloq staff members and is broken into two roles: admins and reviewers. Reviewers can view candidate submissions and have access to a time lapse of their code; they are also able to add new candidates. The admin can do everything the reviewer can, but it can also add more admins and has access to the Django admin site.
 
-Current version: V1.1.2, no known bugs
+Current version: V1.2.1, no known bugs
 ## Dependencies
 The website has three primary dependencies: 
 
