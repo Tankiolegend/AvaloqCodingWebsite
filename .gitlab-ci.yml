@@ -16,15 +16,28 @@ before_script:
   - pip install virtualenv
   - virtualenv venv
   - source venv/bin/activate
-  - apt update -q
-
   - pip install -r requirements.txt
+
+  - apt update -q
   - apt install libcap-dev -yqq
   - git clone https://github.com/ioi/isolate.git
   - cd isolate
   - make isolate
   - make install
   - isolate --init
+  - cd ..
+  
+  - apt install flex -yqq
+  - apt install bison -yqq
+  - apt install cmake -yqq
+  - git clone https://github.com/doxygen/doxygen.git
+  - cd doxygen
+  - mkdir build
+  - cd build
+  - cmake -G "Unix Makefiles" ..
+  - make -j4
+  - make install
+  - cd ..
   - cd ..
 
   - apt install default-jdk -yqq
@@ -34,12 +47,17 @@ before_script:
   - npm i -g --save lodash
   - npm list -g --depth=0
 
-test:
+job:
   tags:
     - docker
   script:
+    - ls -a
+    - doxygen Doxyfile
     - cd avaloq
     - pip install pylint-django
     - python manage.py shell
     - git ls-files | grep -v 'migrations' | grep -v test_data | grep -v 'settings.py' | grep -v 'manage.py' | grep -E '.py$' | xargs pylint -E --load-plugins=pylint_django --disable=imported-auth-user --disable=django-not-configured
     - python manage.py test
+  artifacts:
+    paths:
+      - docs/

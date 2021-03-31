@@ -1,15 +1,19 @@
 import os
 
+
 def read_file(name):
     with open(name, 'r') as f:
         return f.read()
+
 
 def write_file(name, content):
     with open(name, 'w') as f:
         f.write(content)
 
+
 def box_path(id=0):
     return '/var/local/lib/isolate/{}/box'.format(id)
+
 
 def get_all_tests(folder):
     tests = []
@@ -22,6 +26,7 @@ def get_all_tests(folder):
 def get_sample_tests(folder):
     return [test for test in get_all_tests(folder) if os.path.basename(test).startswith('sample_')]
 
+
 def parse_meta(content):
     meta = dict()
     for line in content.split('\n'):
@@ -31,6 +36,7 @@ def parse_meta(content):
         except:
             pass
     return meta
+
 
 def get_inputs(tests):
     return (read_file(test + '.in') for test in tests)

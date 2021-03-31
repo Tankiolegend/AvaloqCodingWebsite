@@ -1,0 +1,33 @@
+
+<!DOCTYPE html> 
+
+
+{% load static %}
+<html lang="en"><head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width" />
+  <title>400</title>
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  
+  <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    />
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+    <link href="{% static 'css/stylesheet.css' %}" rel="stylesheet" />
+    </head>
+    <body>
+      <div id="welcomeBox" style="border-color:red;">
+        <img src="{% static 'images/logo2.jpg' %}" id="logo">
+          <div id="welcome">
+            <h1>Error:400 </h1>
+            <h2 style="color:black">Bad request! The request sent to the server was malformed or illegal!</h2>
+          </div>
+      </div>
+    </body>
+  </html>

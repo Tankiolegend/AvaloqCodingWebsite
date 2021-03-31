@@ -1,8 +1,13 @@
-{% extends 'avaloq_app/base.html' %} {% load static %} {%block title%} Review {%endblock%} {%block meta%}
+{% extends 'avaloq_app/base.html' %}
+ {% load static %} 
+ {%block title%} 
+ Review 
+ {%endblock%} 
+ {%block meta%}
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">{%endblock%} {%block content%}
 
 <nav class="navbar navbar-expand-lg navbar-light bg-dark">
-    <a class="navbar-brand" id="userName">Welcome {{request.user.username}}</a>
+    <a class="navbar-brand" id="userName" href="{% url 'avaloq:review' %}">Welcome {{request.user.username}}</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -11,8 +16,7 @@
 
         {%if admin%}
 
-        <a  href="{% url 'avaloq:create_staff' %}" id="add" style="margin-left: 2rem; margin-right:  2rem;
-        ">+ Staff</a> {%endif%}
+        <a  href="{% url 'avaloq:create_staff' %}" id="addStaff">+ Staff</a> {%endif%}
         <a href="{% url 'avaloq:add-candidate' %}" id="add"> + Candidate</a>
         <ul class="navbar-nav ml-auto text-right">
             <a id="ChangePassword" href="{% url 'auth_password_change' %}"> <u>Change Password</u></a>
@@ -26,15 +30,8 @@
 {%endif%}
 
 
- 
-
-
-
-
 <div id="candidate-list">
     <input class="search" id="search" placeholder="Search" />
-
-
 
     <div id="boxTable">
 
@@ -54,8 +51,6 @@
                 <th><a style="cursor: pointer;" class="sort" data-sort="timestamp">
                                 Created
                         </a></th>
-
-
 
 
             </tr>
@@ -99,9 +94,6 @@
                     </td>
 
                     {%endif%}
-
-
-
                 </tr>
 
                 {% endfor %}
@@ -109,9 +101,6 @@
         </table>
     </div>
 </div>
-
-
-
 
 </div>
 
@@ -133,8 +122,6 @@ for (var i = 0; i < buttons.length; i++) {
 });
 </script>
 <script>
-
-
 
     new ClipboardJS('.img');
      var options = {
@@ -180,21 +167,13 @@ $( document ).ready(function() {
     flashElement(3,500,id);
     }
     
-
     function flashElement(flashes,time,id){
         
         for(var i=0;i<flashes;i++){
             $("#"+id).fadeOut(time).fadeIn(time);
         }
-
     }
-
-
 });
 </script>
-
-
-
-
 
 {%endblock%} {%block login%} {%endblock%}

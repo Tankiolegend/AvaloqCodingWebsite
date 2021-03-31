@@ -10,18 +10,13 @@
 {%if candidate %}
 
     {%if q%}
-{#    {{q.text}}#}
         <div id="boxQuestion">
         {% load markdown_extras %}
         {{ question | markdown | safe }}
         </div>
     {%else%}
         No questioin
-{#        <div id="box">#}
-{##}
-{#        {% load markdown_extras %}#}
-{#        {{ question | markdown | safe }}#}
-{#        </div>#}
+
     {%endif%}
 
     <div id="timer" >

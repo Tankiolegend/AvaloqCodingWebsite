@@ -1,7 +1,6 @@
-from django.urls import path, re_path
+from django.urls import path
 from avaloq_app import views
 from django.conf.urls import url
-from avaloq_app.views import DeleteCandidateView
 
 app_name = 'avaloq'
 
@@ -15,6 +14,4 @@ urlpatterns = [
     path('completion', views.completion, name='completion'),
     path('expired', views.expired, name='expired'),
     url(r'^create-staff/$', views.create_staff, name='create_staff'),
-
-
 ]

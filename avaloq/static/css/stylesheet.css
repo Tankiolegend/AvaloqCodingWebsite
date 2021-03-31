@@ -194,6 +194,7 @@ h4 {
     margin-bottom: 10rem;
     /*display: none;*/
     display: block;
+    padding-bottom: 5rem;
 }
 
 #resultBox2 {
@@ -203,6 +204,8 @@ h4 {
     margin-bottom: 10rem;
     /*display: none;*/
     display: block;
+    padding-bottom: 5rem;
+
 }
 
 #customInput {
@@ -538,6 +541,16 @@ select:active {
     font-family: 'Source Sans Pro', sans-serif;
 }
 
+#loginBtn{
+    width:8rem;  
+    border-radius: 2rem; 
+    margin-top: 0.5rem; 
+    margin-right: 3.4rem;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 0.7rem; height: 2.3rem;     
+    box-shadow: 2px 2px 6px 2px #0097DB;
+}
+
 button:disabled {
     cursor: not-allowed;
     pointer-events: all !important;
@@ -862,14 +875,6 @@ input[type="button" i]:hover:enabled {
     filter: sepia(30%);
 }
 
-#addStaff {
-    margin-bottom: 3rem;
-    border: none;
-    margin-right: 3.0rem;
-    padding-top: 0.7rem;
-    padding-bottom: 0.7rem;
-}
-
 #add {
     color: #00badb;
 }
@@ -879,14 +884,28 @@ input[type="button" i]:hover:enabled {
     text-decoration: none;
 }
 
-#addStaff:hover {
-    margin-bottom: 3rem;
-    border: none;
-    margin-right: 3.0rem;
-    background-color: rgb(77, 194, 230);
-    padding-top: 0.7rem;
-    padding-bottom: 0.7rem;
+#addStaff {
+    padding-left: 1rem;
+    color: #00badb;
+    padding-right: 1.4rem;
 }
+
+#addStaff:hover {
+    padding-left: 1rem;
+    color: white;
+    text-decoration: none;
+    padding-right: 1.4rem;
+}
+
+
+#language{
+    color: #0097DB;
+}
+
+#candName{
+    color: #0097DB;
+}
+
 
 #createCandidate {
     margin-bottom: 3rem;
@@ -985,6 +1004,9 @@ ul {
 #timeImg {
     width: 18px;
     margin-right: 0.5rem;
+    margin-left: 0.5rem;
+    pointer-events: none;
+    cursor: default;
 }
 
 .slidecontainer {
@@ -1061,3 +1083,15 @@ ul {
     width: 55rem;
     background-color: #faf8f8;
 }
+
+#clockText {
+    pointer-events: none;
+    cursor: default;
+        -drag: none;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+

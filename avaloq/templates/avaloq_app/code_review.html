@@ -11,7 +11,7 @@
 <!-- Nav Bar -->
 
 <nav class="navbar navbar-expand-lg navbar-light bg-dark">
-    <a class="navbar-brand" id="userName">Welcome {{request.user.username}}</a>
+    <a class="navbar-brand" id="userName"  href="{% url 'avaloq:review' %}">Welcome {{request.user.username}}</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
     </button>
@@ -21,7 +21,7 @@
 
         {%if admin%}
 
-        <a  href="{% url 'avaloq:create_staff' %}" id="add">+ Staff</a> {%endif%}
+        <a  href="{% url 'avaloq:create_staff' %}" id="addStaff">+ Staff</a> {%endif%}
         <a href="{% url 'avaloq:add-candidate' %}" id="add"> + Candidate</a>
         <ul class="navbar-nav ml-auto text-right">
             <a id="ChangePassword" href="{% url 'auth_password_change' %}"> <u>Change Password</u></a>
@@ -36,9 +36,11 @@
 <div id="box">         
     <div class="slidecontainer">
 
+        <p id="candName">You are viewing: {{candidate.forename}} {{ candidate.surname }}</p>
+
         <div>
-            <button type="button" name="q2" value="q2" class="btn"  style="box-shadow: none;" id="q2" onclick="changeQuestion2()" > Question 2</button>
-            <button type="button" name="q1" value="q1" class="btn" style="box-shadow: none; margin-bottom: -3rem;" id="q1" onclick="changeQuestion1()" > Question 1</button>
+            <button type="button" name="q2" value="q2" class="btn"  style="box-shadow: none;" id="q2" onclick="changeQuestion2()" > {{ question2 }}</button>
+            <button type="button" name="q1" value="q1" class="btn" style="box-shadow: none; margin-bottom: -3rem;" id="q1" onclick="changeQuestion1()" > {{ question1 }}</button>
         </div> 
 
         <input type="range" min="0" max={{code_length}} value="50" class="slider" id="myRange">
@@ -46,11 +48,12 @@
 	
 	</div>
 
-    <p id="clockText" id="code_text"><img src="{% static 'images/clock.png' %}" id="timeImg">Min <span id="demo"></span></p>
+    <p id="clockText"><img src="{% static 'images/clock.png' %}" id="timeImg"> <span id="demo"></span></p>
     
     <p id="language">
-		Language: 
+		Language:
     </p>
+
 
             <form><textarea style="margin-top: 0rem;" id="code_entries" name="code_entries" placeholder="Code goes here..."></textarea></form>
     </div>

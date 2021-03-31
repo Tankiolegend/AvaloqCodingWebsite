@@ -6,7 +6,6 @@ from django.dispatch import receiver
 import uuid
 import datetime
 
-
 # Number of days that the URL will be active for candidates to use
 EXPIRY_TIME = 7
 
@@ -67,7 +66,6 @@ class Candidate(models.Model):
 
     def save(self, *args, **kwargs):
 
-        self.init_time = datetime.datetime.now()
         if self.unique_id == "":
             self.unique_id = str(uuid.uuid4())
             self.init_time = datetime.datetime.now()
@@ -108,7 +106,7 @@ class Candidate(models.Model):
 
     def set_start(self, q_num):
 
-        if (q_num == 0):
+        if q_num == 0:
             self.q1_start = datetime.datetime.now()
         else:
             self.q2_start = datetime.datetime.now()
@@ -117,7 +115,7 @@ class Candidate(models.Model):
 
     def get_start(self, q_num):
 
-        if (q_num == 0):
+        if q_num == 0:
             return self.q1_start
 
         else:
@@ -125,24 +123,22 @@ class Candidate(models.Model):
 
     def get_exp(self, q_num):
 
-        if (q_num == 0):
+        if q_num == 0:
 
             if not self.q1_exp:
-
                 self.q1_exp = self.q1_start + \
-                    datetime.timedelta(
-                        minutes=self.questions.values('time')[0]['time'])
+                              datetime.timedelta(
+                                  minutes=self.questions.values('time')[0]['time'])
 
-            return (self.q1_exp)
+            return self.q1_exp
 
         else:
 
             if not self.q2_exp:
-
                 self.q2_exp = self.q2_start + \
-                    datetime.timedelta(
-                        minutes=self.questions.values('time')[1]['time'])
-            return (self.q2_exp)
+                              datetime.timedelta(
+                                  minutes=self.questions.values('time')[1]['time'])
+            return self.q2_exp
 
     def get_sub(self, q_num):
 
@@ -160,20 +156,19 @@ class Candidate(models.Model):
     def is_expired(self):
         days_old = (datetime.datetime.now() - self.init_time).days
 
-        if(days_old > EXPIRY_TIME):
+        if days_old > EXPIRY_TIME:
             return True
         else:
             return False
 
     def has_started(self):
-        if(self.q1_start is None and self.q2_start is None):
+        if self.q1_start is None and self.q2_start is None:
             return False
         else:
             return True
 
 
 class Code_Entry(models.Model):
-
     candidate = models.ForeignKey(Candidate, on_delete=models.CASCADE)
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
 

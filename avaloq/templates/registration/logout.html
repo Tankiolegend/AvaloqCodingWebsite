@@ -6,24 +6,21 @@ Logged Out
 {% endblock %}
 {% block content %}
 <div id="background">
+
+    <a class="btn btn-outline-primary" href="{% url 'auth_login' %}"
+    >Are you a member of Avaloq? Log In</a
+    >
+
     <div id="subBox">
-        <div id="inside">
+        <div id="insideBlue">
 
             <h1>You have successfully logged out</h1>
             <h3>Have a nice day!</h3>
             <div id="check">
                 <img src="{% static 'images/check.png' %}" id="tickDone">
-    
-                
             </div>
         </div>
-       
-        
-
-
     </div>
-
-
-    </div>
+</div>
 
 {% endblock %}

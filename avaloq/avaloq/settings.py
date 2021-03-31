@@ -11,9 +11,9 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 import os
 from pathlib import Path
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
@@ -22,17 +22,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'm4!ui8rjt&ixr0mmxo8%xk6j_u$7)7gh3gaj2lm_(*6nl4&ol+'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 STATIC_DIR = os.path.join(BASE_DIR, 'static')
 
-
-
 CODEMIRROR_PATH = r"javascript/codemirror"
-
 
 # Application definition
 
@@ -44,7 +41,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # 'avaloq',
     'avaloq_app',
 ]
 
@@ -72,15 +68,14 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
-            'libraries': { # new
-                 'markdown_extras': 'templatetags.markdown_extras'
-             }
+            'libraries': {  # new
+                'markdown_extras': 'templatetags.markdown_extras'
+            }
         },
     },
 ]
 
 WSGI_APPLICATION = 'avaloq.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
@@ -88,10 +83,9 @@ WSGI_APPLICATION = 'avaloq.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),#BASE_DIR / 'db.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),  # BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -111,7 +105,6 @@ AUTH_PASSWORD_VALIDATORS = [
     # },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
@@ -125,17 +118,14 @@ USE_L10N = True
 
 USE_TZ = False
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 STATICFILES_DIRS = [STATIC_DIR, ]
 STATIC_URL = '/static/'
 
-
-
-#registration settings
+# registration settings
 
 REGISTRATION_OPEN = False
 REGISTRATION_AUTO_LOGIN = True
 LOGIN_REDIRECT_URL = 'avaloq:review'
-LOGIN_URL="auth_login"
+LOGIN_URL = "auth_login"

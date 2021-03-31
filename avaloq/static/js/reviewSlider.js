@@ -1,16 +1,31 @@
 let question1 = true;
-
+// update codemirror editor with code entry based on what timelapse is picked on the slider
+// take care of index our of range when questions have different number of conde enties
+function updateEditor() {
+    // check if slider value is displaying the correct value
+    if (document.getElementById('demo').innerText > slider.max){
+        document.getElementById('demo').innerText = slider.max;
+    }
+    if (question1) {
+        editor.setValue(code_entry0[slider.value].code);
+        document.getElementById("language").innerHTML = "Language: " + code_entry0[slider.value].language;
+    } else {
+        editor.setValue(code_entry1[slider.value].code);
+        document.getElementById("language").innerHTML = "Language: " + code_entry1[slider.value].language;
+    }
+}
+//update codemirror editor based on what question was clicked
 function changeQuestion1() {
     question1 = true;
     slider.max = code_entry0.length - 1;
     updateEditor();
     hideResultBox(2);
 }
-
 function changeQuestion2() {
     question1 = false;
     slider.max = code_entry1.length - 1;
     updateEditor();
+    hideResultBox(1);
 }
 
 
@@ -125,27 +140,3 @@ function hideResultBox(id) {
     }
 }
 
-function updateEditor() {
-    if (question1) {
-        if (slider.value > code_entry0.length) {
-            slider.max = code_entry0.length - 1;
-            slider.value = code_entry0.length - 1;
-            editor.setValue(code_entry0[slider.value].code);
-			document.getElementById("language").innerHTML = "Language: " + code_entry0[slider.value].language;
-        } else {
-            editor.setValue(code_entry0[slider.value].code);
-			document.getElementById("language").innerHTML = "Language: " + code_entry0[slider.value].language;
-        }
-
-    } else {
-        if (slider.value > code_entry1.length) {
-            slider.max = code_entry1.length - 1;
-            slider.value = code_entry1.length - 1;
-            editor.setValue(code_entry1[slider.value].code);
-			document.getElementById("language").innerHTML = "Language: " + code_entry1[slider.value].language;
-        } else {
-            editor.setValue(code_entry1[slider.value].code);
-			document.getElementById("language").innerHTML = "Language: " + code_entry1[slider.value].language;
-        }
-    }
-}

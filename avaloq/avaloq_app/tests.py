@@ -5,6 +5,7 @@ from avaloq_app.testsystem import LANGS, TestSystem
 
 TEST_DIR = 'test_data'
 
+
 class TestSystemTestCase(TestCase):
     def setUp(self):
         self.ts = TestSystem()
@@ -76,7 +77,8 @@ class TestSystemTestCase(TestCase):
         self.assertTrue(self._all(LANGS['javascript'], read_file(f'{TEST_DIR}/sols/wa.js'), self.all_tests, 'WA'))
 
     def test_apache_commons(self):
-        self.assertTrue(self._all(LANGS['java'], read_file(f'{TEST_DIR}/sols/apache_commons.java'), self.all_tests, 'WA'))
+        self.assertTrue(
+            self._all(LANGS['java'], read_file(f'{TEST_DIR}/sols/apache_commons.java'), self.all_tests, 'WA'))
 
     def test_forkbomb(self):
         self.assertTrue(self._all(LANGS['python'], read_file(f'{TEST_DIR}/sols/forkbomb.py'), self.all_tests, 'RE'))
@@ -84,5 +86,3 @@ class TestSystemTestCase(TestCase):
     @skip('Doesn\'t work on the GitLab runner')
     def test_lodash(self):
         self.assertTrue(self._all(LANGS['javascript'], read_file(f'{TEST_DIR}/sols/lodash.js'), self.all_tests, 'WA'))
-
-    

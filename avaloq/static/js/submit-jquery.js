@@ -331,7 +331,7 @@ function showTestCaseName(compiler_responses) {
 
         } else {
 
-            document.getElementById(id).innerHTML = "Test Case " + c.toString() + "<img src = \"/static/images/cross.png\" >";
+            document.getElementById(id).innerHTML = "Test Case " + c.toString() + " <img src = \"/static/images/cross.png\" >";
             document.getElementById(id).style.color = "#ff0000";
 
         }
