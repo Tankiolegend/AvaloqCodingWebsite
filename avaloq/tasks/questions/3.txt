@@ -1,1 +1,0 @@
-This is third question. Print all primes smaller than 10.
