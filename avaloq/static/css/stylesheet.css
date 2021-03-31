@@ -862,7 +862,7 @@ input[type="button" i]:hover:enabled {
     width: 160px;
 }
 
-#delete_btn {
+.delete_btn {
     background-color: #ffffff;
     border: none;
 }
